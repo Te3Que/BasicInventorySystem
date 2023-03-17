@@ -7,6 +7,6 @@
 
  ---
 
-Next if you want to easily run them in developer mode, change the run.ps1 to fit the directory you have choosen.
+Next if you want to easily run them in developer mode, change the run.ps1 to fit the directory you have downloaded the project.
 
 And ofc you need dotnet SDK to run this project
