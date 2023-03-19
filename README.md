@@ -1,4 +1,4 @@
-<h1 align="center>BasicInventorySystem</h1>
+# BasicInventorySystem
 
 A basic inventory system made with webapi and blazor server.
 it uses an api that have connection to a db, here it's MongoDB.
