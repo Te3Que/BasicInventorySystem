@@ -1,0 +1,34 @@
+@page "/CreateInventory"
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@inject IHttpClientFactory ClientFactory
+
+<div class="wrapper">
+    <form class="form">
+      <div class="pageTitle title">Create Inventory</div>
+      <div class="secondaryTitle title">Please fill this form to create new item</div>
+      <input type="text" class="name formEntry" placeholder="Product Name" />
+      <input type="number" class="email formEntry" placeholder="Amount"/>
+      <input type="text" class="name formEntry" placeholder="Location"/>
+      <input type="text" class="name formEntry" placeholder="Barcode"/>
+      <button class="submit formEntry" onclick="thanks()">Submit</button>
+    </form>
+  </div>
+
+
+@code 
+{
+    /*
+public async Task CreateData(MyData data)
+{
+    var create =
+    await _httpClient.PostAsJsonAsync("api/data", data);
+}
+
+private async Task CreateMyData()
+{
+    var data = new MyData { Name = "John", Age = 30 };
+    await CreateData(data);
+}
+*/
+}
