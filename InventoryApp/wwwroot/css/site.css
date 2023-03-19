@@ -179,3 +179,8 @@
           transform: translate(0, 8px);
         }
       }
+
+      .centerdiv {
+        display: flex;
+        justify-content: center;
+      }

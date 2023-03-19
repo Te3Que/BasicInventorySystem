@@ -6,31 +6,34 @@
 
 @if (products == null)
 {
-    <p><em>Loading ...</em></p>
+    <p><em>Fetching data ...</em></p>
 }
 else
 {
-    <table>
-	<thead>
-		<tr>
-			<td>Name</td>
-			<td>Amount</td>
-			<td>Location</td>
-			<td>Barcode</td>
-		</tr>
-	</thead>
-        <tbody>
-            @foreach (var product in products)
-            {
+    <div class="centerdiv">
+        <table>
+            <thead>
                 <tr>
-                    <td>@product.productName</td>
-                    <td>@product.productAmount</td>
-                    <td>@product.productLocation</td>
-                    <td>@product.productBarcode</td>
+                    <td>Name</td>
+                    <td>Amount</td>
+                    <td>Location</td>
+                    <td>Barcode</td>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var product in products)
+                {
+                    <tr>
+                        <td>@product.productName</td>
+                        <td>@product.productAmount</td>
+                        <td>@product.productLocation</td>
+                        <td>@product.productBarcode</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    
 }
 
 
