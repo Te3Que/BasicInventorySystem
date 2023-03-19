@@ -1,12 +1,18 @@
-# BasicInventorySystem
- A basic inventory system made in dotnet
- it uses an api that have connection to a db, here it's MongoDB.
- And uses Blazor as a UX.
+<h1 align="center>BasicInventorySystem</h1>
 
- To run the project start a MongoDB (or any other db) however you want, and do required changes to make the code work with the db. There should not be much to change if you use a mongodb in a docker container or something like that.
+A basic inventory system made with webapi and blazor server.
+it uses an api that have connection to a db, here it's MongoDB.
+And uses BlazorServer as a UX.
 
- ---
+---
 
-Next if you want to easily run them in developer mode, change the run.ps1 to fit the directory you have downloaded the project.
+Feel free to open issues or clone/fork the project.
 
-And ofc you need dotnet SDK to run this project
+---
+
+#### Prerequisites:
+- Dotnet 7.0 SDK
+- Knowledge of Dotnet
+- MongoDB or other DB (would require tweaks to code)
+  
+There is a run.ps1 that you could run to run both projects at once easier, will require editing to change directory to your project directory.
