@@ -11,6 +11,7 @@ Feel free to open issues or clone/fork the project.
 ---
 
 #### Prerequisites:
+```diff
 - @@ Dotnet 7.0
 - @@ Knowledge of Dotnet
 - @@ MongoDB or other DB (would require tweaks to code)
