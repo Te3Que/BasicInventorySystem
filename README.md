@@ -11,8 +11,8 @@ Feel free to open issues or clone/fork the project.
 ---
 
 #### Prerequisites:
-- Dotnet 7.0 SDK
-- Knowledge of Dotnet
-- MongoDB or other DB (would require tweaks to code)
+- <span style="color:yellow">Dotnet 7.0</span>
+- <span style="color:yellow">Knowledge of Dotnet</span>
+- <span style="color:yellow">MongoDB or other DB (would require tweaks to code)</span>
   
 There is a run.ps1 that you could run to run both projects at once easier, will require editing to change directory to your project directory.
