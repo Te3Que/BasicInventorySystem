@@ -376,3 +376,8 @@
     .makespace {
       margin-top: 5%;
     }
+
+    .placeTopLeft {
+      display: flex;
+      justify-content: left;
+    }

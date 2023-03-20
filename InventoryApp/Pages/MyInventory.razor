@@ -1,6 +1,5 @@
 @page "/MyInventory"
 @using System.Text.Json
-@using System.Text.Json.Serialization
 @using InventoryApp.Models
 @inject IHttpClientFactory ClientFactory
 
@@ -14,6 +13,7 @@ else
         <table>
             <thead>
                 <tr>
+                    <td>Id</td>
                     <td>Name</td>
                     <td>Amount</td>
                     <td>Location</td>
@@ -24,6 +24,7 @@ else
                 @foreach (var product in products)
                 {
                     <tr>
+                        <td>@product.Id</td>
                         <td>@product.productName</td>
                         <td>@product.productAmount</td>
                         <td>@product.productLocation</td>

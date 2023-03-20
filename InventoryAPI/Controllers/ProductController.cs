@@ -17,6 +17,7 @@ public class ProductController : Controller
 
     //  Crud functions
 
+    [ActionName("CreateProduct")]
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] Product product) 
     {
@@ -24,19 +25,22 @@ public class ProductController : Controller
         return CreatedAtAction(nameof(Get), new { id = product.Id }, product);
     }
 
+    [ActionName("GetProduct")]
     [HttpGet]
     public async Task<List<Product>> Get()
     {
             return await _mongoDBService.GetAsync();
     }
 
-     [HttpPut("{id}")]
+    [ActionName("UpdateProduct")]
+    [HttpPut("{id}")]
     public async Task<IActionResult> AddToProduct(string id, [FromBody] int productAmount, string productLocation, string productBarcode)
     {
         await _mongoDBService.AddToProductAsync(id, productAmount, productLocation, productBarcode);
         return NoContent();
     }
 
+    [ActionName("DeleteProduct")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
     {

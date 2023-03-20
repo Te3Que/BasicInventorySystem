@@ -1,34 +1,31 @@
 @page "/CreateInventory"
+@using InventoryApp.Models
 @using System.Text.Json
 @using System.Text.Json.Serialization
-@inject IHttpClientFactory ClientFactory
+@using System.Net.Http.Json
+@inject HttpClient Http
 
 <div class="wrapper">
     <form class="form">
       <div class="pageTitle title">Create Inventory</div>
       <div class="secondaryTitle title">Please fill this form to create new item</div>
-      <input type="text" class="name formEntry" placeholder="Product Name" />
-      <input type="number" class="email formEntry" placeholder="Amount"/>
-      <input type="text" class="name formEntry" placeholder="Location"/>
-      <input type="text" class="name formEntry" placeholder="Barcode"/>
-      <button class="submit formEntry" onclick="thanks()">Submit</button>
+      <input type="text" class="name formEntry" placeholder="Product Name" @bind-value="createProduct.productName" />
+      <input type="number" class="email formEntry" placeholder="Amount" @bind-value="createProduct.productAmount" />
+      <input type="text" class="name formEntry" placeholder="Location" @bind-value="createProduct.productLocation" />
+      <input type="text" class="name formEntry" placeholder="Barcode" @bind-value="createProduct.productBarcode" />
+      <button class="submit formEntry" @onclick="CreateProduct">Submit</button>
     </form>
   </div>
 
 
 @code 
 {
-    /*
-public async Task CreateData(MyData data)
-{
-    var create =
-    await _httpClient.PostAsJsonAsync("api/data", data);
-}
+  Product createProduct = new Product();
 
-private async Task CreateMyData()
-{
-    var data = new MyData { Name = "John", Age = 30 };
-    await CreateData(data);
+  protected async Task CreateProduct()
+  {
+    var data = new { productName = createProduct.productName, productAmount = createProduct.productAmount, productLocation = createProduct.productLocation, productBarcode = createProduct.productBarcode};
+    await Http.PostAsJsonAsync("http://localhost:5001/api/Product", data);
+  }
 }
-*/
-}
+  

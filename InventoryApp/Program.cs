@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using System.Net.Http.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();

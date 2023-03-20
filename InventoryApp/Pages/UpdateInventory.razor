@@ -1,0 +1,80 @@
+@page "/UpdateInventory"
+@using InventoryApp.Models
+@using System.Text.Json
+@inject IHttpClientFactory ClientFactory
+
+@if (products == null)
+{
+    <p><em>Fetching data ...</em></p>
+}
+else
+{
+    <div class="placeTopLeft">
+        <input type="text" placeholder="Product Name" @bind-value="searchString">
+        </div>
+    <div class="centerdiv">
+        
+        <table>
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Name</td>
+                    <td>Amount</td>
+                    <td>Location</td>
+                    <td>Barcode</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in products)
+                {
+                    <tr>
+                        @if (product.productName == searchString)
+                        {
+                            <td>@product.Id</td>
+                            <td>@product.productName</td>
+                            <td>@product.productAmount</td>
+                            <td>@product.productLocation</td>
+                            <td>@product.productBarcode</td>
+                        }
+                        
+                    </tr>
+                }
+            </tbody>
+            <buttton>Submit</buttton>
+        </table>
+    </div>
+    
+}
+
+@code {
+
+    public string searchString;
+    private IEnumerable<Product> products = Array.Empty<Product>();
+    private bool getProductsError;
+    private bool shouldRender;
+
+    protected override bool ShouldRender() => shouldRender;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get,
+            "http://localhost:5001/api/Product");
+
+        var client = ClientFactory.CreateClient();
+
+        var response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            products = await JsonSerializer.DeserializeAsync
+                <IEnumerable<Product>>(responseStream);
+        }
+        else
+        {
+            getProductsError = true;
+        }
+
+        shouldRender = true;
+    }
+}
