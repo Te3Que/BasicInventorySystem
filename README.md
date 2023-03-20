@@ -14,9 +14,9 @@ Feel free to open issues or clone/fork the project.
 
 ```diff
 
-@@ Dotnet 7.0 SDK
-@@ Knowledge of Dotnet
-@@ MongoDB or other db (will require tweaks to code)
+@@ Dotnet 7.0 SDK @@
+@@ Knowledge of Dotnet @@
+@@ MongoDB or other db (will require tweaks to code) @@
 
 ```
   
