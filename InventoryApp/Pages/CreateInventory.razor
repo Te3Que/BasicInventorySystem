@@ -20,12 +20,12 @@
 
 @code 
 {
-  Product createProduct = new Product();
+Product createProduct = new Product();
 
-  protected async Task CreateProduct()
-  {
-    var data = new { productName = createProduct.productName, productAmount = createProduct.productAmount, productLocation = createProduct.productLocation, productBarcode = createProduct.productBarcode};
-    await Http.PostAsJsonAsync("http://localhost:5001/api/Product", data);
-  }
+protected async Task CreateProduct()
+{
+  var data = new { productName = createProduct.productName, productAmount = createProduct.productAmount, productLocation = createProduct.productLocation, productBarcode = createProduct.productBarcode};
+  await Http.PostAsJsonAsync("http://localhost:5001/api/Product", data);
+}
 }
   

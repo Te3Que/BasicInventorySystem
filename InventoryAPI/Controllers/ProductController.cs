@@ -17,34 +17,32 @@ public class ProductController : Controller
 
     //  Crud functions
 
-    [ActionName("CreateProduct")]
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] Product product) 
     {
         await _mongoDBService.CreateAsync(product);
-        return CreatedAtAction(nameof(Get), new { id = product.Id }, product);
+        return CreatedAtAction(nameof(Get), new { _id = product._id }, product);
     }
 
-    [ActionName("GetProduct")]
     [HttpGet]
     public async Task<List<Product>> Get()
     {
             return await _mongoDBService.GetAsync();
     }
 
-    [ActionName("UpdateProduct")]
-    [HttpPut("{id}")]
-    public async Task<IActionResult> AddToProduct(string id, [FromBody] int productAmount, string productLocation, string productBarcode)
+    [HttpPut("{productBarcode}")]
+    [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> AddToProduct(string _id, [FromBody] int productAmount, string productLocation, string productBarcode)
     {
-        await _mongoDBService.AddToProductAsync(id, productAmount, productLocation, productBarcode);
+        await _mongoDBService.AddToProductAsync(_id, productAmount, productLocation, productBarcode);
         return NoContent();
     }
 
-    [ActionName("DeleteProduct")]
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(string id)
+    [HttpDelete("{productBarcode}")]
+    public async Task<IActionResult> Delete(string productBarcode)
     {
-        await _mongoDBService.DeleteAsync(id);
+        await _mongoDBService.DeleteAsync(productBarcode);
         return NoContent();
     }
     

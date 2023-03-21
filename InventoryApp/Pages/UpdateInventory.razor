@@ -1,80 +1,28 @@
 @page "/UpdateInventory"
 @using InventoryApp.Models
 @using System.Text.Json
-@inject IHttpClientFactory ClientFactory
-
-@if (products == null)
-{
-    <p><em>Fetching data ...</em></p>
-}
-else
-{
-    <div class="placeTopLeft">
-        <input type="text" placeholder="Product Name" @bind-value="searchString">
-        </div>
-    <div class="centerdiv">
-        
-        <table>
-            <thead>
-                <tr>
-                    <td>Id</td>
-                    <td>Name</td>
-                    <td>Amount</td>
-                    <td>Location</td>
-                    <td>Barcode</td>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var product in products)
-                {
-                    <tr>
-                        @if (product.productName == searchString)
-                        {
-                            <td>@product.Id</td>
-                            <td>@product.productName</td>
-                            <td>@product.productAmount</td>
-                            <td>@product.productLocation</td>
-                            <td>@product.productBarcode</td>
-                        }
-                        
-                    </tr>
-                }
-            </tbody>
-            <buttton>Submit</buttton>
-        </table>
-    </div>
-    
-}
+@using System.Net.Http.Json
+@inject HttpClient Http
+   
+<div class="wrapper">
+    <form class="form">
+        <div class="pageTitle title">Create Inventory</div>
+        <div class="secondaryTitle title">Please fill this form to update item</div>
+        <input type="text" class="name formEntry" placeholder="Product Id" @bind-value="createProduct._id" />
+        <input type="text" class="name formEntry" placeholder="Product Name" @bind-value="createProduct.productName" />
+        <input type="number" class="email formEntry" placeholder="Amount" @bind-value="createProduct.productAmount" />
+        <input type="text" class="name formEntry" placeholder="Location" @bind-value="createProduct.productLocation" />
+        <input type="text" class="name formEntry" placeholder="Barcode" @bind-value="createProduct.productBarcode" />
+        <button class="submit formEntry" @onclick="UpdateProduct">Submit</button>
+    </form>
+</div>
 
 @code {
 
-    public string searchString;
-    private IEnumerable<Product> products = Array.Empty<Product>();
-    private bool getProductsError;
-    private bool shouldRender;
-
-    protected override bool ShouldRender() => shouldRender;
-
-    protected override async Task OnInitializedAsync()
-    {
-        var request = new HttpRequestMessage(HttpMethod.Get,
-            "http://localhost:5001/api/Product");
-
-        var client = ClientFactory.CreateClient();
-
-        var response = await client.SendAsync(request);
-
-        if (response.IsSuccessStatusCode)
-        {
-            using var responseStream = await response.Content.ReadAsStreamAsync();
-            products = await JsonSerializer.DeserializeAsync
-                <IEnumerable<Product>>(responseStream);
-        }
-        else
-        {
-            getProductsError = true;
-        }
-
-        shouldRender = true;
-    }
+Product createProduct = new Product();
+protected async Task UpdateProduct()
+{
+    var data = new { Id = createProduct._id, productName = createProduct.productName, productAmount = createProduct.productAmount, productLocation = createProduct.productLocation, productBarcode = createProduct.productBarcode};
+    await Http.PutAsJsonAsync("http://localhost:5001/api/Product", data);
+}
 }
