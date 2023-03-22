@@ -20,9 +20,24 @@
 @code {
 
 Product createProduct = new Product();
+
 protected async Task UpdateProduct()
 {
-    var data = new { Id = createProduct._id, productName = createProduct.productName, productAmount = createProduct.productAmount, productLocation = createProduct.productLocation, productBarcode = createProduct.productBarcode};
-    await Http.PutAsJsonAsync("http://localhost:5001/api/Product", data);
+    try 
+    {
+        var data = new { 
+        _id = createProduct._id, 
+        productName = createProduct.productName, 
+        productAmount = createProduct.productAmount, 
+        productLocation = createProduct.productLocation, 
+        productBarcode = createProduct.productBarcode
+        };
+        await Http.PutAsJsonAsync("http://localhost:5001/api/Product", data);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"An error occurred: {ex.Message}");
+    }
+    
 }
 }

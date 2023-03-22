@@ -9,6 +9,9 @@ namespace InventoryAPI.Controllers;
 public class ProductController : Controller
 {
     private readonly MongoDBService _mongoDBService;
+
+    Product updateProduct = new Product();
+
     public ProductController(MongoDBService mongoDBService)
     {
         _mongoDBService = mongoDBService;
@@ -30,16 +33,14 @@ public class ProductController : Controller
             return await _mongoDBService.GetAsync();
     }
 
-    [HttpPut("{productBarcode}")]
-    [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
-    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddToProduct(string _id, [FromBody] int productAmount, string productLocation, string productBarcode)
+    [HttpPut("{_id}")]
+    public async Task<IActionResult> AddToProduct(string _id, [FromBody] Product updateProduct)
     {
-        await _mongoDBService.AddToProductAsync(_id, productAmount, productLocation, productBarcode);
+        await _mongoDBService.AddToProductAsync(_id, updateProduct);
         return NoContent();
     }
 
-    [HttpDelete("{productBarcode}")]
+    [HttpDelete("{_id}")]
     public async Task<IActionResult> Delete(string productBarcode)
     {
         await _mongoDBService.DeleteAsync(productBarcode);

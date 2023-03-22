@@ -7,6 +7,8 @@ namespace InventoryAPI.Services;
 
 public class MongoDBService
 {
+
+    Product updateProduct = new Product();
     private readonly IMongoCollection<Product> _productCollection;
 
     public MongoDBService(IOptions<MongoDBSettings> mongoDBSettings)
@@ -27,19 +29,19 @@ public class MongoDBService
             return;
         }
 
-    public async Task AddToProductAsync(string id, int productAmount, string productLocation, string productBarcode) 
+    public async Task AddToProductAsync(string _id, Product updateProduct) 
         {
-            FilterDefinition<Product> filter = Builders<Product>.Filter.Eq("Id", id);
+            FilterDefinition<Product> filter = Builders<Product>.Filter.Eq("_id", _id);
             UpdateDefinition<Product> update = Builders<Product>.Update
-            .Set(p => p.productAmount, productAmount)
-            .Set(p => p.productLocation, productLocation)
-            .Set(p => p.productBarcode, productBarcode);
+                .Set(p => p.productAmount, updateProduct.productAmount)
+                .Set(p => p.productLocation, updateProduct.productLocation)
+                .Set(p => p.productBarcode, updateProduct.productBarcode);
             await _productCollection.UpdateOneAsync(filter, update);
             return;
         }
-    public async Task DeleteAsync(string id)
+    public async Task DeleteAsync(string _id)
     {
-        FilterDefinition<Product> filter = Builders<Product>.Filter.Eq("Id", id);
+        FilterDefinition<Product> filter = Builders<Product>.Filter.Eq("_id", _id);
         await _productCollection.DeleteOneAsync(filter);
         return;
     }
