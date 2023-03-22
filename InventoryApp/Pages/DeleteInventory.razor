@@ -1,2 +1,37 @@
 @page "/DeleteInventory"
 
+@using InventoryApp.Models
+@using System.Text.Json
+@using System.Net.Http.Json
+@inject IHttpClientFactory _httpClient
+
+<div class="wrapper">
+    <form class="form">
+        <div class="pageTitle title">Create Inventory</div>
+        <div class="secondaryTitle title">Please fill this form to delete item</div>
+        <input type="text" class="name formEntry" placeholder="Product Id" @bind-value="_id" />
+        <button class="submit formEntry" @onclick="DeleteProduct">Submit</button>
+    </form>
+</div>
+
+@code {
+
+private string _id;
+
+protected async Task DeleteProduct()
+{
+    var httpClient = _httpClient.CreateClient();
+
+    try
+    {
+        using var httpResponseMessage =
+        await httpClient.DeleteAsync($"http://localhost:5001/api/Product/{_id}");
+
+    httpResponseMessage.EnsureSuccessStatusCode();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"An error occurred: {ex.Message}");
+    }
+}
+}
