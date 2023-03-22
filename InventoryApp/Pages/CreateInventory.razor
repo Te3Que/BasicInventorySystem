@@ -24,8 +24,22 @@ Product createProduct = new Product();
 
 protected async Task CreateProduct()
 {
-  var data = new { productName = createProduct.productName, productAmount = createProduct.productAmount, productLocation = createProduct.productLocation, productBarcode = createProduct.productBarcode};
-  await Http.PostAsJsonAsync("http://localhost:5001/api/Product", data);
+  try 
+  {
+    var data = new { 
+    productName = createProduct.productName, 
+    productAmount = createProduct.productAmount, 
+    productLocation = createProduct.productLocation, 
+    productBarcode = createProduct.productBarcode
+    };
+
+    await Http.PostAsJsonAsync("http://localhost:5001/api/Product", data);
+  }
+  catch (Exception ex)
+  {
+    Console.WriteLine($"An error occurred: {ex.Message}");
+  }
+  
 }
 }
   

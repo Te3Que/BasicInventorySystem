@@ -41,9 +41,9 @@ public class ProductController : Controller
     }
 
     [HttpDelete("{_id}")]
-    public async Task<IActionResult> Delete(string productBarcode)
+    public async Task<IActionResult> Delete(string _id)
     {
-        await _mongoDBService.DeleteAsync(productBarcode);
+        await _mongoDBService.DeleteAsync(_id);
         return NoContent();
     }
     

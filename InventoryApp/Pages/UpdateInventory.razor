@@ -2,7 +2,8 @@
 @using InventoryApp.Models
 @using System.Text.Json
 @using System.Net.Http.Json
-@inject HttpClient Http
+@using System.Net.Http.Headers
+@inject IHttpClientFactory _httpClient
    
 <div class="wrapper">
     <form class="form">
@@ -23,6 +24,35 @@ Product createProduct = new Product();
 
 protected async Task UpdateProduct()
 {
+    var httpClient = _httpClient.CreateClient();
+
+    try
+    {
+        var data = new { 
+        _id = createProduct._id, 
+        productName = createProduct.productName, 
+        productAmount = createProduct.productAmount, 
+        productLocation = createProduct.productLocation, 
+        productBarcode = createProduct.productBarcode
+        };
+
+        var json = JsonSerializer.Serialize(data);
+        var content = new StringContent(json);
+        content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+        using var httpResponseMessage =
+        await httpClient.PutAsync($"http://localhost:5001/api/Product/{createProduct._id}", content);
+
+        httpResponseMessage.EnsureSuccessStatusCode();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"An error occurred: {ex.Message}");
+    }
+}
+/*
+protected async Task UpdateProduct()
+{
     try 
     {
         var data = new { 
@@ -40,4 +70,5 @@ protected async Task UpdateProduct()
     }
     
 }
+*/
 }

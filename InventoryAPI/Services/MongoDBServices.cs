@@ -33,6 +33,7 @@ public class MongoDBService
         {
             FilterDefinition<Product> filter = Builders<Product>.Filter.Eq("_id", _id);
             UpdateDefinition<Product> update = Builders<Product>.Update
+                .Set(p => p.productName, updateProduct.productName)
                 .Set(p => p.productAmount, updateProduct.productAmount)
                 .Set(p => p.productLocation, updateProduct.productLocation)
                 .Set(p => p.productBarcode, updateProduct.productBarcode);
