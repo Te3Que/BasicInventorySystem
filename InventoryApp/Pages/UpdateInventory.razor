@@ -18,9 +18,21 @@
     </form>
 </div>
 
+<button class="returnRoot" @onclick="RedirectToHome">Home</button>
+
 @code {
 
+
+
 Product createProduct = new Product();
+
+[Inject]
+private NavigationManager NavigationManager { get; set; }
+
+private void RedirectToHome()
+{
+    NavigationManager.NavigateTo("/");
+}
 
 protected async Task UpdateProduct()
 {

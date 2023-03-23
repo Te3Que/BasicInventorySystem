@@ -34,12 +34,22 @@ else
             </tbody>
         </table>
     </div>
+
+    <button class="returnRoot" @onclick="RedirectToHome">Home</button>
     
 }
 
 
 
 @code {
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+
+    private void RedirectToHome()
+    {
+        NavigationManager.NavigateTo("/");
+    }
     private IEnumerable<Product> products = Array.Empty<Product>();
     private bool getProductsError;
     private bool shouldRender;
